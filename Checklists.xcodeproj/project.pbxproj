@@ -16,6 +16,8 @@
 		535867E42A9741CE00FBCA71 /* ChecklistsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535867E32A9741CE00FBCA71 /* ChecklistsTests.swift */; };
 		535867EE2A9741CE00FBCA71 /* ChecklistsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535867ED2A9741CE00FBCA71 /* ChecklistsUITests.swift */; };
 		535867F02A9741CE00FBCA71 /* ChecklistsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535867EF2A9741CE00FBCA71 /* ChecklistsUITestsLaunchTests.swift */; };
+		535D36F52A9B3A1E001ADD4A /* AddItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535D36F42A9B3A1E001ADD4A /* AddItemTableViewController.swift */; };
+		53608ADF2A99E7A50071EB5C /* ChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53608ADE2A99E7A50071EB5C /* ChecklistItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		535867E92A9741CE00FBCA71 /* ChecklistsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChecklistsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		535867ED2A9741CE00FBCA71 /* ChecklistsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistsUITests.swift; sourceTree = "<group>"; };
 		535867EF2A9741CE00FBCA71 /* ChecklistsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		535D36F42A9B3A1E001ADD4A /* AddItemTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemTableViewController.swift; sourceTree = "<group>"; };
+		53608ADE2A99E7A50071EB5C /* ChecklistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				535867D52A9741CE00FBCA71 /* Assets.xcassets */,
 				535867D72A9741CE00FBCA71 /* LaunchScreen.storyboard */,
 				535867DA2A9741CE00FBCA71 /* Info.plist */,
+				53608ADE2A99E7A50071EB5C /* ChecklistItem.swift */,
+				535D36F42A9B3A1E001ADD4A /* AddItemTableViewController.swift */,
 			);
 			path = Checklists;
 			sourceTree = "<group>";
@@ -259,8 +265,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				535867D12A9741CD00FBCA71 /* ChecklistViewController.swift in Sources */,
+				535D36F52A9B3A1E001ADD4A /* AddItemTableViewController.swift in Sources */,
 				535867CD2A9741CD00FBCA71 /* AppDelegate.swift in Sources */,
 				535867CF2A9741CD00FBCA71 /* SceneDelegate.swift in Sources */,
+				53608ADF2A99E7A50071EB5C /* ChecklistItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
