@@ -8,7 +8,7 @@
 import UIKit
 
 //change object so it reads the table view controller
-class ChecklistViewController: UITableViewController {
+class ChecklistViewController: UITableViewController, AddItemTableViewControllerDelegate {
     
     //create array list.
     var items = [ChecklistItem]()
