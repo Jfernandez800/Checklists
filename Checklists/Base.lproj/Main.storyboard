@@ -42,7 +42,7 @@
                     <navigationItem key="navigationItem" title="Checklists" id="VhY-x9-DFi">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="V4V-aW-SUX">
                             <connections>
-                                <segue destination="UUL-ya-ldU" kind="show" id="SpF-6a-Cvm"/>
+                                <segue destination="UUL-ya-ldU" kind="show" identifier="AddItem" id="SpF-6a-Cvm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

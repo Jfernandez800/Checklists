@@ -10,7 +10,7 @@ import UIKit
 //delegate protocol contract between Screen B
 protocol AddItemTableViewControllerDelegate: AnyObject {
     //when cancel is pressed.
-    func addItemViewTableControllerDidCancel(
+    func addItemTableViewControllerDidCancel(
     _ controller: AddItemTableViewController)
     //when done is pressed.
     func addItemTableViewController(
@@ -25,7 +25,6 @@ class AddItemTableViewController: UITableViewController, UITextFieldDelegate { /
     @IBOutlet weak var textField: UITextField!
     //sends messages from within view controller to enable or disable done bar button.
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
-    
     //
     weak var delegate: AddItemTableViewControllerDelegate?
     
@@ -34,14 +33,17 @@ class AddItemTableViewController: UITableViewController, UITextFieldDelegate { /
         navigationItem.largeTitleDisplayMode = .never
     }
     
+    //This method will automatically bring the keyboard out when addItem is active.
+    override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
+      textField.becomeFirstResponder()
+    }
+    
     // MARK: - Actions
     //sends message to delegate that cancel was tapped.
     @IBAction func cancel() {
-      delegate?.addItemViewTableControllerDidCancel(self)
+      delegate?.addItemTableViewControllerDidCancel(self)
     }
-
-    // This variable refers to the other view controller
-    var checklistViewController: ChecklistViewController
     
     //sends message to delegate that done was tapped and passes new Checklist object from text field.
     @IBAction func done() {
@@ -58,13 +60,7 @@ class AddItemTableViewController: UITableViewController, UITextFieldDelegate { /
     ) -> IndexPath? {       //question mark gives it the ability to return nil. so it tells the row to do nothing when tapped.
     return nil
     }
-    
-    //This method will automatically bring the keyboard out when addItem is active.
-    override func viewWillAppear(_ animated: Bool) {
-      super.viewWillAppear(animated)
-      textField.becomeFirstResponder()
-    }
-    
+     
     // MARK: - Text Field Delegates
     //This method changes the text every time user taps or cut/paste.
     func textField(
