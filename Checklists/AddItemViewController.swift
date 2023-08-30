@@ -8,29 +8,41 @@
 import UIKit
 
 //delegate protocol contract between Screen B
-protocol AddItemTableViewControllerDelegate: AnyObject {
+protocol AddItemViewControllerDelegate: AnyObject {
     //when cancel is pressed.
-    func addItemTableViewControllerDidCancel(
-    _ controller: AddItemTableViewController)
+    func itemDetailViewControllerDidCancel(
+        _ controller: AddItemViewController)
+    
     //when done is pressed.
-    func addItemTableViewController(
-    _ controller: AddItemTableViewController,
-    //this will pass the parameter to ChecklistItem object.
-    didFinishAdding item: ChecklistItem
-  )
+    func itemDetailViewController(
+        _ controller: AddItemViewController,
+        //this will pass the parameter to ChecklistItem object.
+        didFinishAdding item: ChecklistItem
+    )
+    
+    func itemDetailViewController(
+        _ controller: AddItemViewController,
+        didFinishEditing item: ChecklistItem
+    )
 }
 
-class AddItemTableViewController: UITableViewController, UITextFieldDelegate { //can now be a delegate for text fields.
+class AddItemViewController: UITableViewController, UITextFieldDelegate { //can now be a delegate for text fields.
     //connects the row from addItem to done.
     @IBOutlet weak var textField: UITextField!
     //sends messages from within view controller to enable or disable done bar button.
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     //
-    weak var delegate: AddItemTableViewControllerDelegate?
+    weak var delegate: AddItemViewControllerDelegate?
+    var itemToEdit: ChecklistItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.largeTitleDisplayMode = .never
+      
+        if let item = itemToEdit {
+            title = "Edit Item"
+            textField.text = item.text
+            doneBarButton.isEnabled = true
+            }
     }
     
     //This method will automatically bring the keyboard out when addItem is active.
@@ -42,14 +54,22 @@ class AddItemTableViewController: UITableViewController, UITextFieldDelegate { /
     // MARK: - Actions
     //sends message to delegate that cancel was tapped.
     @IBAction func cancel() {
-      delegate?.addItemTableViewControllerDidCancel(self)
+      delegate?.itemDetailViewControllerDidCancel(self)
     }
     
     //sends message to delegate that done was tapped and passes new Checklist object from text field.
     @IBAction func done() {
-      let item = ChecklistItem()
-      item.text = textField.text!
-      delegate?.addItemTableViewController(self, didFinishAdding: item)
+        //Check property for object.
+        if let item = itemToEdit {      //Edits existing item.
+            item.text = textField.text!
+            delegate?.itemDetailViewController(
+                self,
+                didFinishEditing: item)
+        } else {                        //creates new item.
+            let item = ChecklistItem()
+            item.text = textField.text!
+            delegate?.itemDetailViewController(self, didFinishAdding: item)
+        }
     }
     
     // MARK: - Table View Delegates
