@@ -12,6 +12,8 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
     
     //create array list.
     var items = [ChecklistItem]()
+    //assigns existing ChecklistItem object being editted to the variable.
+    var itemToEdit: ChecklistItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,6 +134,7 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
       }
     
     // MARK: - Navigation
+    //checks to see which disclosure was tapped on whether we add or edit.
     override func prepare(
       for segue: UIStoryboardSegue,
       sender: Any?
@@ -151,8 +154,8 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
             }
         }
     }
-    var itemToEdit: ChecklistItem?
     
+    //will update the item being edited to the corresponding index its from.
     func itemDetailViewController(
       _ controller: AddItemViewController,
       didFinishEditing item: ChecklistItem

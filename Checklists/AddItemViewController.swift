@@ -19,7 +19,7 @@ protocol AddItemViewControllerDelegate: AnyObject {
         //this will pass the parameter to ChecklistItem object.
         didFinishAdding item: ChecklistItem
     )
-    
+    //did user finish editing
     func itemDetailViewController(
         _ controller: AddItemViewController,
         didFinishEditing item: ChecklistItem
