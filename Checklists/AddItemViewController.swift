@@ -94,7 +94,7 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate { //can 
         let newText = oldText.replacingCharacters(
             in: stringRange,
             with: string)
-        //once the text us done it checks to see if text field is empty to enable or disable done.
+        //once the text is done it checks to see if text field is empty to enable or disable done.
         doneBarButton.isEnabled = !newText.isEmpty
         return true
     }

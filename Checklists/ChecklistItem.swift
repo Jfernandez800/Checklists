@@ -8,7 +8,7 @@
 import Foundation
 
 //satisfies the equatable requirement.
-class ChecklistItem: NSObject {
+class ChecklistItem: NSObject, Codable { //ChecklistItem will conform to the Codable protocol.
   var text = ""
   var checked = false
 }
