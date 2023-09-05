@@ -14,18 +14,20 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
     var items = [ChecklistItem]()
     //assigns existing ChecklistItem object being editted to the variable.
     var itemToEdit: ChecklistItem?
+    //
+    var checklist: Checklist!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //Enables large titles
-        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        // Disable large titles for this view controller
+        navigationItem.largeTitleDisplayMode = .never
         
         //call method to load items.
         loadChecklistItems()
         
-        //displays in console where the app Documents folder is located.
-        print("Documents folder is \(documentsDirectory())")
-        print("Data file path is \(dataFilePath())")
+        //changes title of the screen
+        title = checklist.name
     }
     
     // MARK: - Table View Data Source
