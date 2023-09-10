@@ -21,25 +21,20 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
         // Disable large titles for this view controller
         navigationItem.largeTitleDisplayMode = .never
         
-        //call method to load items.
-        //loadChecklistItems()
-        
         //changes title of the screen
         title = checklist.name
         
-        print("Documents folder is \(documentsDirectory())")
-        print("Data file path is \(dataFilePath())")
+        //print("Documents folder is \(documentsDirectory())")
+        //print("Data file path is \(dataFilePath())")
     }
     
     func documentsDirectory() -> URL {
-      let paths = FileManager.default.urls(
-        for: .documentDirectory,
-        in: .userDomainMask)
+      let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
       return paths[0]
     }
+    
     func dataFilePath() -> URL {
-      return
-    documentsDirectory().appendingPathComponent("Checklists.plist")
+      return documentsDirectory().appendingPathComponent("Checklists.plist")
     }
     
     // MARK: - Table View Data Source

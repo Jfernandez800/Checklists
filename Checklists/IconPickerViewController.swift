@@ -15,6 +15,7 @@ class IconPickerViewController: UITableViewController {
         return icons.count
     }
     
+    //method will obtain a table view cell and give it a title and an image.
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "IconCell", for: indexPath)
         let iconName = icons[indexPath.row]
@@ -23,6 +24,7 @@ class IconPickerViewController: UITableViewController {
         return cell
     }
     
+    //this method set icons on the Checklist objects.
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         if let delegate = delegate {
             let iconName = icons[indexPath.row]

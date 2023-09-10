@@ -15,6 +15,7 @@ protocol ListDetailViewControllerDelegate: AnyObject {
 }
 
 class ListDetailViewController: UITableViewController, UITextFieldDelegate, IconPickerViewControllerDelegate {
+    
     @IBOutlet var textField: UITextField!
     @IBOutlet var doneBarButton: UIBarButtonItem!
     weak var delegate: ListDetailViewControllerDelegate?
@@ -39,6 +40,7 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate, Icon
         delegate?.listDetailViewControllerDidCancel(self)
     }
     
+    //checks to see if the checklist has data inputed and will activate done.
     @IBAction func done() {
         if let checklist = checklistToEdit {
             checklist.name = textField.text!
@@ -51,27 +53,28 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate, Icon
     }
     
     // MARK: - Table View Delegates
+    //makes it possible to trigger the segue when icon is tapped.
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         return indexPath.section == 1 ? indexPath : nil
     }
     
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ LAST WEEK
+    
     // MARK: - Text Field Delegates
-    func textField(
-        _ textField: UITextField,
-        shouldChangeCharactersIn range: NSRange,
-        replacementString string: String
-    ) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let oldText = textField.text!
         let stringRange = Range(range, in: oldText)!
         let newText = oldText.replacingCharacters(in: stringRange, with: string)
         doneBarButton.isEnabled = !newText.isEmpty
         return true
     }
-    
+
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         doneBarButton.isEnabled = false
         return true
     }
+    
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ LAST WEEK
     
     // MARK: - Icon Picker View Controller Delegate
     //puts the name of the chosen icon into the iconName variable to remember it, and also updates the image view with the new image.

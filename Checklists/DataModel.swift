@@ -20,9 +20,7 @@ class DataModel {
     
     // MARK: - Data Saving
     func documentsDirectory() -> URL {
-        let paths = FileManager.default.urls(
-            for: .documentDirectory,
-            in: .userDomainMask)
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
     }
     
@@ -30,7 +28,6 @@ class DataModel {
         return documentsDirectory().appendingPathComponent("Checklists.plist")
     }
     
-    // this method is now called saveChecklists()
     func saveChecklists() {
         let encoder = PropertyListEncoder()
         do {
@@ -42,7 +39,6 @@ class DataModel {
         }
     }
     
-    // this method is now called loadChecklists()
     func loadChecklists() {
         let path = dataFilePath()
         if let data = try? Data(contentsOf: path) {
@@ -57,7 +53,7 @@ class DataModel {
         }
     }
     
-    //creates a new Dictionary instance and adds the value -1 for the key “ChecklistIndex”.
+    //creates a new Dictionary instance and add the value -1 for the key “ChecklistIndex”.
     func registerDefaults() {
         let dictionary = ["ChecklistIndex": -1, "FirstTime": true] as [String: Any]
         UserDefaults.standard.register(defaults: dictionary)
