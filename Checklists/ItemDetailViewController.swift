@@ -8,13 +8,13 @@
 import UIKit
 
 //delegate protocol contract between Screen B
-protocol AddItemViewControllerDelegate: AnyObject {
+protocol ItemDetailViewControllerDelegate: AnyObject {
     //when cancel is pressed.
-    func addItemViewControllerDidCancel(_ controller: ItemDetailViewController)
+    func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController)
     //this will pass the parameter to ChecklistItem object.
-    func addItemViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem)
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem)
     //did user finish editing
-    func addItemViewController(_ controller: ItemDetailViewController, didFinishEditing item: ChecklistItem)
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditing item: ChecklistItem)
 }
 
 class ItemDetailViewController: UITableViewController, UITextFieldDelegate { //can now be a delegate for text fields.
@@ -22,8 +22,10 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate { //c
     @IBOutlet weak var textField: UITextField!
     //sends messages from within view controller to enable or disable done bar button.
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
+    @IBOutlet weak var shouldRemindSwitch: UISwitch!
+    @IBOutlet weak var datePicker: UIDatePicker!
     //
-    weak var delegate: AddItemViewControllerDelegate?
+    weak var delegate: ItemDetailViewControllerDelegate?
     var itemToEdit: ChecklistItem?
     
     override func viewDidLoad() {
@@ -33,6 +35,10 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate { //c
             title = "Edit Item"
             textField.text = item.text
             doneBarButton.isEnabled = true
+            //If the user is adding a new item, the switch is initially off
+            shouldRemindSwitch.isOn = item.shouldRemind
+            //set the displayed date in the date picker.
+            datePicker.date = item.dueDate
             }
     }
     
@@ -45,21 +51,25 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate { //c
     // MARK: - Actions
     //sends message to delegate that cancel was tapped.
     @IBAction func cancel() {
-      delegate?.addItemViewControllerDidCancel(self)
+      delegate?.itemDetailViewControllerDidCancel(self)
     }
     
     //sends message to delegate that done was tapped and passes new Checklist object from text field.
     @IBAction func done() {
-        //Check property for object.
-        if let item = itemToEdit {      //Edits existing item.
+        if let item = itemToEdit {
             item.text = textField.text!
-            delegate?.addItemViewController(
-                self,
-                didFinishEditing: item)
-        } else {                        //creates new item.
+            item.shouldRemind = shouldRemindSwitch.isOn  // add this
+            item.dueDate = datePicker.date
+            item.scheduleNotification()
+            delegate?.itemDetailViewController(self, didFinishEditing: item)
+        } else {
             let item = ChecklistItem()
             item.text = textField.text!
-            delegate?.addItemViewController(self, didFinishAdding: item)
+            item.checked = false
+            item.shouldRemind = shouldRemindSwitch.isOn  // add this
+            item.dueDate = datePicker.date
+            item.scheduleNotification()
+            delegate?.itemDetailViewController(self, didFinishAdding: item)
         }
     }
     
@@ -88,5 +98,16 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate { //c
         //once the text is done it checks to see if text field is empty to enable or disable done.
         doneBarButton.isEnabled = !newText.isEmpty
         return true
+    }
+    
+    //When the Remind Me switch is toggled to ON, this prompts the user for permission to send local notifications.
+    @IBAction func shouldRemindToggled(_ switchControl: UISwitch) {
+        textField.resignFirstResponder()
+        if switchControl.isOn {
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.alert, .sound]) {_, _
+                in
+            }
+        }
     }
 }
