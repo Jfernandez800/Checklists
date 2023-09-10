@@ -10,23 +10,14 @@ import UIKit
 //delegate protocol contract between Screen B
 protocol AddItemViewControllerDelegate: AnyObject {
     //when cancel is pressed.
-    func itemDetailViewControllerDidCancel(
-        _ controller: AddItemViewController)
-    
-    //when done is pressed.
-    func itemDetailViewController(
-        _ controller: AddItemViewController,
-        //this will pass the parameter to ChecklistItem object.
-        didFinishAdding item: ChecklistItem
-    )
+    func addItemViewControllerDidCancel(_ controller: ItemDetailViewController)
+    //this will pass the parameter to ChecklistItem object.
+    func addItemViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem)
     //did user finish editing
-    func itemDetailViewController(
-        _ controller: AddItemViewController,
-        didFinishEditing item: ChecklistItem
-    )
+    func addItemViewController(_ controller: ItemDetailViewController, didFinishEditing item: ChecklistItem)
 }
 
-class AddItemViewController: UITableViewController, UITextFieldDelegate { //can now be a delegate for text fields.
+class ItemDetailViewController: UITableViewController, UITextFieldDelegate { //can now be a delegate for text fields.
     //connects the row from addItem to done.
     @IBOutlet weak var textField: UITextField!
     //sends messages from within view controller to enable or disable done bar button.
@@ -54,7 +45,7 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate { //can 
     // MARK: - Actions
     //sends message to delegate that cancel was tapped.
     @IBAction func cancel() {
-      delegate?.itemDetailViewControllerDidCancel(self)
+      delegate?.addItemViewControllerDidCancel(self)
     }
     
     //sends message to delegate that done was tapped and passes new Checklist object from text field.
@@ -62,13 +53,13 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate { //can 
         //Check property for object.
         if let item = itemToEdit {      //Edits existing item.
             item.text = textField.text!
-            delegate?.itemDetailViewController(
+            delegate?.addItemViewController(
                 self,
                 didFinishEditing: item)
         } else {                        //creates new item.
             let item = ChecklistItem()
             item.text = textField.text!
-            delegate?.itemDetailViewController(self, didFinishAdding: item)
+            delegate?.addItemViewController(self, didFinishAdding: item)
         }
     }
     
